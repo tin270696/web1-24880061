@@ -84,10 +84,72 @@
             </nav>
         </header>
 
-        <section class="container">
-            <h1 class="py-5">
-                Contacts
-            </h1>
+        <section id="banner-small"></section>
+
+        <section class="container py-5">
+            <h1 class="pb-3">Contacts</h1>
+            <div class="pt-3" id="map"></div>
+        </section>
+
+        <section class="container py-3">
+            <div class="row">
+                <div class="col">
+                    <h1>Address:</h1>
+                    <p class="text-black-50 pt-3">
+                        227 Nguyen Van Cu Street<br>
+                        District 5<br>
+                        Ho Chi Minh City, Vietnam
+                    </p>
+                </div>
+                <div class="col">
+                    <h1>Phones:</h1>
+                    <p class="text-black-50 py-3">
+                        (028) 62884499<br>
+                        (028) 73089899
+                    </p>
+                </div>
+                <div class="col">
+                    <h1>Email:</h1>
+                    <p class="text-black-50 py-3">
+                        <a href="mailto:info@hcmus.edu.vn">info@hcmus.edu.vn</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="container py-3">
+            <h1>Miscellaneous information:</h1>
+            <div class="text-black-50 pt-3">
+                <p">For any comments, suggestions, or questions, please use our Contact Us form to get in touch. We value your input and are here to help with any concerns you may have.</p>
+                <p><i>Send an email. All fields with an * are required.</i></p>
+                <form action="#" method="post">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label" for="name">Name *</label>
+                            <input class="form-control form-control-sm" type="text" name="name" id="name" required>
+                        </div>
+                        <div class="col">
+                            <label class="form-label" for="name">Email *</label>
+                            <input class="form-control form-control-sm" type="email" name="email" id="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                        </div>
+                        <div class="col">
+                            <label class="form-label" for="subject">Subject *</label>
+                            <input class="form-control form-control-sm" type="text" name="subject" id="subject" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message *</label>
+                        <textarea class="form-control" name="message" id="message" rows="3"></textarea>
+                    </div>
+                    <div class="text-end">
+                        <div class="form-check">
+                            <label class="form-check-label" for="copy">Send a copy to yourself&nbsp;</label>
+                            <input type="checkbox" value="1" id="copy"/> &nbsp;&nbsp;
+                            <button type="submit" class="btn btn-primary btn-sm">Send email to us</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </section>
         
         <!-- Footer -->
@@ -152,5 +214,7 @@
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
             crossorigin="anonymous"
         ></script>
+        <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
+        <script src="./js/map.js"></script>
     </body>
 </html>
