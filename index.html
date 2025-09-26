@@ -230,7 +230,9 @@
             <div class="row text-center py-5">
                 {{#each data}}
                 <div class="col-lg-3 col-md-6 col-sm-12">
-                    <img src="{{imagepath}}" alt="{{name}}">
+                    <img src="{{imagepath}}" alt="{{name}}"
+                    onmouseover="setActiveImagepath(this, '{{imagepath}}')"
+                    onmouseout="setActiveImagepath(this, '{{imagepath}}', false)">
                     <h3>{{name}}</h3>
                     <p class="text-black-50">{{summary}}</p>
                     <a class="readmore btn btn-link pt-0" href="#" onclick="dataLoad('products/{{id}}', 'details-template', '#content')">Read more</a>
@@ -274,6 +276,16 @@
         <script>
             dataLoad("products", "products-template", "#products");
             dataLoad("news", "news-template", "#news");
+
+            const setActiveImagepath = (image, imagepath, isActive = true) => {
+                if(isActive) {
+                    image.src = imagepath.replace('.', '-active.');
+                }
+                else {
+                    image.src = imagepath;
+                }
+                image.nextElementSibling.classList.toggle('web1-text-blue');
+            }
         </script>
     </body>
 </html>
