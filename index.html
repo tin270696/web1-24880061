@@ -128,32 +128,6 @@
             </section>
             <!-- Products -->
             <section class="container" id="products">
-                <div class="row text-center py-5">
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <img src="images/icon-1.png" alt="Coffee">
-                        <h3>Coffee</h3>
-                        <p class="text-black-50">Coffee energizes the mind, warms the soul, and fuels creativity daily.</p>
-                        <a class="readmore btn btn-link pt-0" href="#">Read more</a>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <img src="images/icon-2.png" alt="Drinks">
-                        <h3>Drinks</h3>
-                        <p class="text-black-50">Drinks refresh, rejuvenate, and bring people together in joyful moments.</p>
-                        <a class="readmore btn btn-link pt-0" href="#">Read more</a>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <img src="images/icon-3.png" alt="Cakes">
-                        <h3>Cakes</h3>
-                        <p class="text-black-50">Cakes sweeten celebrations, delighting taste buds with layers of joy.</p>
-                        <a class="readmore btn btn-link pt-0" href="#">Read more</a>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
-                        <img src="images/icon-4.png" alt="Ice-creams">
-                        <h3>Ice-creams</h3>
-                        <p class="text-black-50">Ice creams cool, delight, and bring sweet joy to everyone.</p>
-                        <a class="readmore btn btn-link pt-0" href="#">Read more</a>
-                    </div>
-                </div>
             </section>
             <!-- About us -->
             <section class="container-fluid" id="aboutUs">
@@ -181,50 +155,6 @@
             </section>
             <!-- News -->
             <section class="container py-5" id="news">
-                <div class="mb-4">
-                    <h1>News</h1>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-4">
-                        <div class="row">
-                            <div class="col-3">
-                                <h3 class="newsDate text-center rounded-4 text-white py-2">Dec.<br/>
-                                25.</h3>
-                                <a href="#" class="btn btn-link readmore p-0">Read more</a>
-                            </div>
-                            <div class="col-9">
-                                <h3>Coffee Enthusiasts Rejoice</h3>
-                                <p class="text-black-50">New Study Reveals Coffee's Surprising Benefits for Mental Health</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="row">
-                            <div class="col-3">
-                                <h3 class="newsDate text-center rounded-4 text-white py-2">Nov.<br/>
-                                22.</h3>
-                                <a href="#" class="btn btn-link readmore p-0">Read more</a>
-                            </div>
-                            <div class="col-9">
-                                <h3>Culinary Revolution</h3>
-                                <p class="text-black-50">AI Chefs Redefine Gourmet Dining with Innovative Dishes</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <div class="row">
-                            <div class="col-3">
-                                <h3 class="newsDate text-center rounded-4 text-white py-2">Oct.<br/>
-                                10.</h3>
-                                <a href="#" class="btn btn-link readmore p-0">Read more</a>
-                            </div>
-                            <div class="col-9">
-                                <h3>Our Cakes</h3>
-                                <p class="text-black-50">Cake Artistry Reaches New Heights with 3D-Printed Edible Masterpieces</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </section>
         </div>
         
@@ -290,12 +220,60 @@
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
             crossorigin="anonymous"
         ></script>
+
+        <script src="./js/24880061.js"></script>
+
+        <!-- HandlebarsJS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js" integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script id="products-template" type="text/x-handlebars-template">
+            <div class="row text-center py-5">
+                {{#each data}}
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <img src="{{imagepath}}" alt="{{name}}">
+                    <h3>{{name}}</h3>
+                    <p class="text-black-50">{{summary}}</p>
+                    <a class="readmore btn btn-link pt-0" href="#" onclick="dataLoad('products/{{id}}', 'details-template', '#content')">Read more</a>
+                </div>
+                {{/each}}
+            </div>
+        </script>
+
+        <script id="news-template" type="text/x-handlebars-template">
+            <div class="mb-4">
+                <h1>News</h1>
+            </div>
+            <div class="row mb-3">
+                {{#each data}}
+                <div class="col">
+                    <div class="row">
+                        <div class="col-3">
+                            <h3 class="newsDate text-center rounded-4 text-white py-2">{{date}}</h3>
+                            <a href="#" class="btn btn-link readmore p-0" onclick="dataLoad('news/{{id}}', 'details-template', '#content')">Read more</a>
+                        </div>
+                        <div class="col-9">
+                            <h3>{{name}}</h3>
+                            <p class="text-black-50">{{summary}}</p>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </script>
+
+        <script id="details-template" type="text/x-handlebars-template">
+            <section class="container-fluid" id="banner-small"></section>
+            {{#each data}}
+            <section class="container py-5">
+                <h1 class="mb-3">{{name}}</h1>
+                <div class="text-black-50">{{{description}}}</div>
+            </section>
+            {{/each}}
+        </script>
+        
         <script>
-            // (async function() {
-            //     const response = await fetch('https://web1-api.herokuapp.com/api/products');
-            //     const data = await response.json();
-            //     console.log(data);
-            // })();
+            dataLoad("products", "products-template", "#products");
+            dataLoad("news", "news-template", "#news");
         </script>
     </body>
 </html>

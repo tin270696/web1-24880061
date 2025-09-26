@@ -111,6 +111,7 @@ h1 {
 /* News */
 #news .newsDate {
     background-color: var(--web1-green);
+    padding: 1.5rem;
     width: 6rem;
 }
 
