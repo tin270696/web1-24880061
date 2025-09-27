@@ -21,6 +21,10 @@ h1 {
     font-weight: 900;
 }
 
+h4 {
+    color: black;
+}
+
 #header-menu a {
     display: block;
     padding: 0 1.25rem;
