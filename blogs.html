@@ -89,57 +89,8 @@
         <section class="container py-5">
             <div class="row">
                 <div class="col-8" id="blogs">
-                    <h1>Blogs</h1>
-                    <div class="clearfix py-3">
-                        <h3>The Magic of Coffee: A Journey Through Aroma and Flavor</h3>
-                        <p class="text-black-50">by Super User in <a href="#">Specialty Coffee Blends</a> on Thu, Jan 29, 2015, GMT+7 <a href="#">Comments (4)</a></p>
-                        <img src="./images/blog/blog-thumb1.jpg" alt="blog1" class="float-start me-3 border rounded-4">
-                        <p class="text-black-50">Coffee, the beloved brew that kick-starts countless mornings and fuels productive afternoons, is much more than just a morning ritual. It's a rich tapestry of history, culture, and craftsmanship, offering a sensory experience that delights millions around the globe. In this blog, we delve into the fascinating world of coffee, exploring its origins, the artistry behind brewing, and the science of its invigorating effects.</p>
-                        <a href="#" class="btn btn-link readmore ps-0">Read more</a>
-                    </div>
-                    <div class="clearfix py-3">
-                        <h3>The Magic of Coffee: A Journey Through Aroma and Flavor</h3>
-                        <p class="text-black-50">by Super User in <a href="#">Specialty Coffee Blends</a> on Thu, Jan 29, 2015, GMT+7 <a href="#">Comments (4)</a></p>
-                        <img src="./images/blog/blog-thumb1.jpg" alt="blog1" class="float-start me-3 border rounded-4">
-                        <p class="text-black-50">Coffee, the beloved brew that kick-starts countless mornings and fuels productive afternoons, is much more than just a morning ritual. It's a rich tapestry of history, culture, and craftsmanship, offering a sensory experience that delights millions around the globe. In this blog, we delve into the fascinating world of coffee, exploring its origins, the artistry behind brewing, and the science of its invigorating effects.</p>
-                        <a href="#" class="btn btn-link readmore ps-0">Read more</a>
-                    </div>
-                    <div class="clearfix py-3">
-                        <h3>The Magic of Coffee: A Journey Through Aroma and Flavor</h3>
-                        <p class="text-black-50">by Super User in <a href="#">Specialty Coffee Blends</a> on Thu, Jan 29, 2015, GMT+7 <a href="#">Comments (4)</a></p>
-                        <img src="./images/blog/blog-thumb1.jpg" alt="blog1" class="float-start me-3 border rounded-4">
-                        <p class="text-black-50">Coffee, the beloved brew that kick-starts countless mornings and fuels productive afternoons, is much more than just a morning ritual. It's a rich tapestry of history, culture, and craftsmanship, offering a sensory experience that delights millions around the globe. In this blog, we delve into the fascinating world of coffee, exploring its origins, the artistry behind brewing, and the science of its invigorating effects.</p>
-                        <a href="#" class="btn btn-link readmore ps-0">Read more</a>
-                    </div>
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination">
-                            <li class="page-item" aria-current="page">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">3</a>
-                            </li>
-                        </ul>
-                    </nav>
-                    
                 </div>
                 <div class="col-4" id="blogs-categories">
-                    <h1>Categories</h1>
-                    <ul class="py-3">
-                        <li>
-                            <a href="#" class="text-black-50 text-decoration-none">Specialty Coffee Blends</a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-black-50 text-decoration-none">Healthy Drinks</a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-black-50 text-decoration-none">Gourmet CupCake Creations</a>
-                        </li>
-                        <li>
-                            <a href="#" class="text-black-50 text-decoration-none">Classic Dessert Flavors</a>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </section>
@@ -206,5 +157,140 @@
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
             crossorigin="anonymous"
         ></script>
+
+        <!-- HandlebarsJS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js" integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script src="./js/handlebars-pagination-helper.js"></script>
+        <script src="./js/24880061.js"></script>
+
+        <script id="blogs-categories-template" type="text/x-handlebars-template">
+            <h1>Categories</h1>
+            <ul class="py-3">
+                {{#each data}}
+                <li>
+                    <a href="#" class="text-black-50 text-decoration-none"
+                    onclick="loadBlogs('blogs/categories/{{id}}')">{{name}}</a>
+                </li>
+                {{/each}}
+            </ul>
+        </script>
+
+        <script id="blogs-template" type="text/x-handlebars-template">
+            <h1>Blogs</h1>
+            {{#each data}}
+            <div class="clearfix py-3">
+                <h3>{{name}}</h3>
+                <p class="text-black-50">by {{author}} in <a href="#" onclick="loadBlogs('blogs/categories/{{category.id}}')">{{category.name}}</a> on {{formatDate date}} <a href="#" onclick="loadBlogDetails('{{id}}', true)">Comments ({{comments.length}})</a></p>
+                <img src="{{thumbpath}}" alt="{{name}}" class="float-start me-3 border rounded-4">
+                <p class="text-black-50">{{summary}}</p>
+                <a href="#" class="btn btn-link readmore ps-0" onclick="loadBlogDetails('{{id}}')">Read more</a>
+            </div>
+            {{/each}}
+            {{#pagination currentPage pageCount}}
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    {{#each pages}}
+                        {{#if isCurrent}}
+                        <li class="page-item disabled" aria-current="page"><a class="page-link" href="#" onclick="loadBlogs('{{../../request}}', {{page}})">{{page}}</a></li>
+                        {{/if}}
+                        {{#unless isCurrent}}
+                        <li class="page-item"><a class="page-link" href="#" onclick="loadBlogs('{{../../request}}', {{page}})">{{page}}</a></li>
+                        {{/unless}}
+                    {{/each}}
+                </ul>
+            </nav>
+            {{/pagination}}
+        </script>
+
+        <script id="details-template" type="text/x-handlebars-template">
+            {{#each data}}
+            <h3>{{name}}</h3>
+            <p class="text-black-50">by {{author}} in <a href="#" onclick="loadBlogs('blogs/categories/{{category.id}}')">{{category.name}}</a> on {{formatDate date}} <a href="#comments">Comments ({{comments.length}})</a></p>
+            <img src="{{imagepath}}" alt="{{name}}" class="float-start me-3 rounded-3">
+            <div class="text-black-50">{{{description}}}</div>
+            <div class="py-3">
+                <h3>Leave your comments</h3>
+                <form action="#" method="post" class="text-black-50">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name (Required)</label>
+                                <input type="text" class="form-control form-control-sm" name="name" id="name" placeholder="" required/>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="text" class="form-control form-control-sm" name="email" id="email" placeholder=""  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" name="message" id="message" rows="3" required></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" id="agree" required/>
+                                <label class="form-check-label" for="agree">Agree to terms and conditions.</label>
+                            </div>
+                        </div>
+                        <div class="col text-end">
+                            <button type="submit" class="btn btn-link text-decoration-none p-0">
+                                Submit Comment
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <a id="comments"></a>
+            <div class="bg-dark text-white-50 p-2">COMMENTS ({{comments.length}})</div>
+            <div class="py-3 text-black-50">
+                {{#each comments}}
+                <p>{{name}} &nbsp;&nbsp; {{formatDate date}}</p>
+                <p>{{summary}}</p>
+                <hr>
+                {{/each}}
+            </div>
+            {{/each}}
+        </script>
+
+        <script>
+            Handlebars.registerHelper('formatDate', (date) => {
+                let formatDate = new Date(date);
+                let options = {
+                    weekday: 'short',
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric',
+                    timeZoneName: 'short'
+                };
+                return formatDate.toLocaleString('en-US', options);
+            })
+
+            const loadBlogs = async (req, currentPage = 1) => {
+                const response = await fetch(`${API}/${req}?page=${currentPage}`);
+                const context = await response.json();
+                context.currentPage = currentPage;
+                context.request = req;
+
+                var source = document.getElementById('blogs-template').innerHTML;
+                var template = Handlebars.compile(source);
+
+                var view = document.getElementById('blogs');
+                view.innerHTML = template(context);
+            }
+
+            loadBlogs('blogs');
+            loadData('blogs-categories', 'blogs-categories-template', 'blogs-categories');
+
+            const loadBlogDetails = async (blogId, goToComment = false) => {
+                await loadData(`blogs/${blogId}`, 'details-template', 'blogs');
+                if(goToComment) {
+                    window.location.href = '#comments';
+                }
+            }
+        </script>
     </body>
 </html>
