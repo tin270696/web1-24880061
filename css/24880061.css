@@ -116,6 +116,10 @@ h4 {
     border-color: rgba(0, 0, 0, 0.5) !important;
 }
 
+#aboutUs #signup-text {
+    color: white !important;
+}
+
 /* News */
 #news .newsDate {
     background-color: var(--web1-green);
