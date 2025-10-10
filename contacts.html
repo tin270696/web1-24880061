@@ -122,7 +122,7 @@
             <div class="text-black-50 pt-3">
                 <p">For any comments, suggestions, or questions, please use our Contact Us form to get in touch. We value your input and are here to help with any concerns you may have.</p>
                 <p><i>Send an email. All fields with an * are required.</i></p>
-                <form action="#" method="post">
+                <form action="#" method="post" onsubmit="onSubmit(event)">
                     <div class="row mb-3">
                         <div class="col">
                             <label class="form-label" for="name">Name *</label>
@@ -139,7 +139,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="message" class="form-label">Message *</label>
-                        <textarea class="form-control" name="message" id="message" rows="3"></textarea>
+                        <textarea class="form-control" name="message" id="message" rows="3" required></textarea>
                     </div>
                     <div class="text-end">
                         <div class="form-check">
@@ -148,6 +148,7 @@
                             <button type="submit" class="btn btn-primary btn-sm">Send email to us</button>
                         </div>
                     </div>
+                    <div id="responseMessage" class="text-danger text-center"></div>
                 </form>
             </div>
         </section>
@@ -215,6 +216,42 @@
             crossorigin="anonymous"
         ></script>
         <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
+
         <script src="./js/map.js"></script>
+
+        <!-- reCaptcha -->
+        <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfQ0OQrAAAAAKRoBpycsBch_EOnqR6Pw6lQku9Y"></script>
+        <script>
+            const onSubmit = (e) => {
+                e.preventDefault();
+                grecaptcha.enterprise.ready(async () => {
+                    const token = await grecaptcha.enterprise.execute('6LfQ0OQrAAAAAKRoBpycsBch_EOnqR6Pw6lQku9Y', {action: 'submit'});
+
+                    try {
+                        let response = await fetch('verify.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify({'g-token': token})
+                        })
+                        if(response.status == 200) {
+                            sendMail();
+                        }
+                        else {
+                            document.querySelector('#responseMessage').innerHTML = 'Error: Cannot verify RECAPTCHA!';
+                        }
+                    } catch (error) {
+                        document.querySelector('#responseMessage').innerHTML = 'Error: Network or fetch operation failed!';
+                        console.error('Fetch error:', error);
+                    }
+                });
+            }
+
+            const sendMail = () => {
+                document.querySelector('#responseMessage').innerHTML('OK');
+            }
+        </script>
     </body>
 </html>
