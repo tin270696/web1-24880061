@@ -22,7 +22,7 @@ const getAuthenticateToken = async (username, password) => {
         body: JSON.stringify({username, password})
     });
     const result = await response.json();
-    if(result.status == 200) {
+    if(response.status == 200) {
         return result.token;
     }
     throw new Error(result.message);

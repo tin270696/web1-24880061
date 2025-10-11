@@ -288,19 +288,20 @@
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
-                            "Accept": "application/json"
+                            "Accept": "application/json",
+                            "Authorization": 'Bearer ' + token
                         },
                         body: JSON.stringify(postData)
                     });
                     const result = await response.json();
-                    if(result.status == 200) {
+                    if(response.status == 200) {
                         responseMessage.innerHTML = result.message;
                         responseMessage.className = 'text-success';
                     } else {
                         throw new Error(result.message);
                     }
                 } catch (error) {
-                    responseMessage.innerHTML = error;
+                    responseMessage.innerHTML = "error";
                     responseMessage.className = 'text-danger';
                 }
             }
