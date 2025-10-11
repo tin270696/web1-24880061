@@ -122,7 +122,7 @@
             <div class="text-black-50 pt-3">
                 <p">For any comments, suggestions, or questions, please use our Contact Us form to get in touch. We value your input and are here to help with any concerns you may have.</p>
                 <p><i>Send an email. All fields with an * are required.</i></p>
-                <form action="#" method="post" onsubmit="onSubmit(event)">
+                <form action="#" method="POST" onsubmit="onSubmit(event)">
                     <div class="row mb-3">
                         <div class="col">
                             <label class="form-label" for="name">Name *</label>
@@ -148,7 +148,7 @@
                             <button type="submit" class="btn btn-primary btn-sm">Send email to us</button>
                         </div>
                     </div>
-                    <div id="responseMessage" class="text-danger text-center"></div>
+                    <div id="responseMessage"></div>
                 </form>
             </div>
         </section>
@@ -221,10 +221,11 @@
 
         <!-- reCaptcha -->
         <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfQ0OQrAAAAAKRoBpycsBch_EOnqR6Pw6lQku9Y"></script>
+        
         <script>
             const CAPTCHA_SITE_KEY = '6LfQ0OQrAAAAAKRoBpycsBch_EOnqR6Pw6lQku9Y';
             const CAPTCHA_API_KEY = '6LfQ0OQrAAAAABFTX5NeVnz7wau_I8p6djVIto-2';
-            const CAPTCHA_PROJECT_ID = 'web1-24880061';
+            const CAPTCHA_PROJECT_ID = 'web1-project';
 
             function onSubmit(e) {
                 e.preventDefault();
@@ -267,7 +268,7 @@
             }
 
             const sendMail = () => {
-                document.querySelector('#responseMessage').innerTest ='Email has been sent!';
+                document.querySelector('#responseMessage').innerHTML ='Email has been sent!';
             }
         </script>
     </body>
