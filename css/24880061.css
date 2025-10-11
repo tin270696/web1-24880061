@@ -173,6 +173,6 @@ footer {
 }
 
 .btn-primary {
-    background-color: var(--web1-blue);
+    background-color: var(--web1-blue) !important;
     border: none;
 }
