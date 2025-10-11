@@ -222,35 +222,51 @@
         <!-- reCaptcha -->
         <script src="https://www.google.com/recaptcha/enterprise.js?render=6LfQ0OQrAAAAAKRoBpycsBch_EOnqR6Pw6lQku9Y"></script>
         <script>
-            const onSubmit = (e) => {
+            const CAPTCHA_SITE_KEY = '6LfQ0OQrAAAAAKRoBpycsBch_EOnqR6Pw6lQku9Y';
+            const CAPTCHA_API_KEY = '6LfQ0OQrAAAAABFTX5NeVnz7wau_I8p6djVIto-2';
+            const CAPTCHA_PROJECT_ID = 'web1-24880061';
+            function onSubmit(e) {
                 e.preventDefault();
-                grecaptcha.enterprise.ready(async () => {
-                    const token = await grecaptcha.enterprise.execute('6LfQ0OQrAAAAAKRoBpycsBch_EOnqR6Pw6lQku9Y', {action: 'submit'});
 
-                    try {
-                        let response = await fetch('verify.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'Accept': 'application/json'
-                            },
-                            body: JSON.stringify({'g-token': token})
-                        })
-                        if(response.status == 200) {
-                            sendMail();
+                let responseMessage = document.getElementById('response');
+                responseMessage.className = 'text-success';
+                responseMessage.innerHTML = '';
+
+                grecaptcha.enterprise.ready(async function () {
+                    let token = await grecaptcha.enterprise.execute(CAPTCHA_SITE_KEY, { action: 'submit' });
+
+                    let url = `https://recaptchaenterprise.googleapis.com/v1/projects/${CAPTCHA_PROJECT_ID}/assessments?key=${CAPTCHA_API_KEY}`;
+
+                    let postData = {
+                        "event": {
+                            "token": token,
+                            "siteKey": CAPTCHA_SITE_KEY,
+                            "expectedAction": "submit"
                         }
-                        else {
-                            document.querySelector('#responseMessage').innerHTML = 'Error: Cannot verify RECAPTCHA!';
-                        }
-                    } catch (error) {
-                        document.querySelector('#responseMessage').innerHTML = 'Error: Network or fetch operation failed!';
-                        console.error('Fetch error:', error);
+                    };
+                    let response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(postData)
+                    });
+
+                    let result = await response.json();
+
+                    if (result.tokenProperties.valid) {
+                        sendMail();
+                    } else {
+                        responseMessage.innerHTML = 'Error: Can not verify Recaptcha!';
+                        responseMessage.className = 'text-danger';
                     }
+
                 });
             }
 
             const sendMail = () => {
-                document.querySelector('#responseMessage').innerHTML('OK');
+                document.querySelector('#responseMessage').innerHTML ='OK';
             }
         </script>
     </body>
