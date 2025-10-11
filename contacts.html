@@ -257,13 +257,17 @@
                     let result = await response.json();
 
                     if (result.tokenProperties.valid) {
-                        responseMessage.innerHTML = 'Sending mail successfully!';
+                        sendMail();
                     } else {
                         responseMessage.innerHTML = 'Error: Can not verify Recaptcha!';
                         responseMessage.className = 'text-danger';
                     }
 
                 });
+            }
+
+            const sendMail = () => {
+                document.querySelector('#responseMessage').innerTest ='Email has been sent!';
             }
         </script>
     </body>
