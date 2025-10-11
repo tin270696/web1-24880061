@@ -225,10 +225,11 @@
             const CAPTCHA_SITE_KEY = '6LfQ0OQrAAAAAKRoBpycsBch_EOnqR6Pw6lQku9Y';
             const CAPTCHA_API_KEY = '6LfQ0OQrAAAAABFTX5NeVnz7wau_I8p6djVIto-2';
             const CAPTCHA_PROJECT_ID = 'web1-24880061';
+
             function onSubmit(e) {
                 e.preventDefault();
 
-                let responseMessage = document.getElementById('response');
+                let responseMessage = document.getElementById('responseMessage');
                 responseMessage.className = 'text-success';
                 responseMessage.innerHTML = '';
 
@@ -256,17 +257,13 @@
                     let result = await response.json();
 
                     if (result.tokenProperties.valid) {
-                        sendMail();
+                        responseMessage.innerHTML = 'Sending mail successfully!';
                     } else {
                         responseMessage.innerHTML = 'Error: Can not verify Recaptcha!';
                         responseMessage.className = 'text-danger';
                     }
 
                 });
-            }
-
-            const sendMail = () => {
-                document.querySelector('#responseMessage').innerHTML ='OK';
             }
         </script>
     </body>
