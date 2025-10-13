@@ -27,3 +27,68 @@ const getAuthenticateToken = async (username, password) => {
     }
     throw new Error(result.message);
 }
+
+const login = async (e) => {
+    e.preventDefault();
+
+    const username = document.querySelector('#username').value;
+    const password = document.querySelector('#password').value;
+
+    document.querySelector('#errorMessage').innerHTML = '';
+
+    try {
+        const token = await getAuthenticateToken(username, password);
+        if(token) {
+            localStorage.setItem('token', token);
+            document.querySelector('#modal-login .btn-close').click();
+            displayControls();
+        }
+    } catch (error) {
+        document.querySelector('#errorMessage').innerHTML = error;
+        displayControls(false);
+    }
+}
+
+const displayControls = (isLogin = true) => {
+    const linkLogins = document.querySelectorAll('.linkLogin');
+    const linkLogouts = document.querySelectorAll('.linkLogout');
+
+    let displayLogin = 'none';
+    let displayLogout = 'block';
+    if(!isLogin) {
+        displayLogin = 'block';
+        displayLogout = 'none';
+    }
+    for(let i = 0; i < 2; i++) {
+        linkLogins[i].style.display = displayLogin;
+        linkLogouts[i].style.display = displayLogout;
+    }
+}
+
+const checkLogin = async () => {
+    const isLogin = await verifyToken();
+    displayControls(isLogin);
+}
+
+const verifyToken = async () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        const response = await fetch(`${AUTHENTICATE_API}/verify`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": 'Bearer ' + token
+            }
+        })
+        if(response.status == 200) {
+            return true;
+        }
+    }
+    return false;
+}
+
+const logout = () => {
+    localStorage.clear();
+    displayControls(false);
+}

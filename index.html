@@ -69,9 +69,9 @@
                                 <a class="nav-link" href="./contacts.html">Contacts</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="" data-bs-toggle="modal" data-bs-target="#modal-login">Login</a>
+                                <a class="nav-link linkLogin" href="#" style="display: block" data-bs-toggle="modal" data-bs-target="#modal-login">Login</a>
+                                <a class="nav-link linkLogout" href="#" style="display: none" onclick="logout()">Logout</a>
                             </li>
-                            
                         </ul>
                         <form class="d-flex my-2 my-lg-0 border rounded-pill" id="formSearch">
                             <input class="form-control ms-3 border-0" type="text" placeholder="Search"/>
@@ -179,7 +179,8 @@
                     <a class="nav-link" href="./contacts.html">Contacts</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="" data-bs-toggle="modal" data-bs-target="#modal-login">Login</a>
+                    <a class="nav-link linkLogin" href="#" style="display: block" data-bs-toggle="modal" data-bs-target="#modal-login">Login</a>
+                    <a class="nav-link linkLogout" href="#" style="display: none" onclick="logout()">Logout</a>
                 </li>
             </ul>
             <p class="text-white-50">Copyright &copy; 2025 by Luu Trung Tin - 24880061</p>
@@ -192,8 +193,8 @@
                     <div class="modal-header">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body" id="modalLogin">
-                        <form action="#" method="post" id="formLogin">
+                    <div class="modal-body">
+                        <form action="#" method="post" id="formLogin" onsubmit="login(event)">
                             <h3 class="text-center">Login Form</h3>
                             <div class="mb-3">
                                 <input type="text" name="username" id="username" placeholder="Username" class="form-control" required>
@@ -204,7 +205,8 @@
                             <button type="submit" class="form-control">Login</button>
                         </form>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer justify-content-center">
+                        <div class="text-danger" id="errorMessage"></div>
                     </div>
                 </div>
             </div>
@@ -276,6 +278,7 @@
         </script>
         
         <script>
+            checkLogin();
             loadData("products", "products-template", "products");
             loadData("news", "news-template", "news");
 
