@@ -63,6 +63,11 @@ const displayControls = (isLogin = true) => {
         linkLogins[i].style.display = displayLogin;
         linkLogouts[i].style.display = displayLogout;
     }
+
+    const leaveComment = document.querySelector("#leave-comment");
+    if(leaveComment) {
+        leaveComment.style.display = displayLogout;
+    }
 }
 
 const checkLogin = async () => {
