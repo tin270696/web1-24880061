@@ -174,8 +174,7 @@
             <ul class="py-3">
                 {{#each data}}
                 <li>
-                    <a href="#" class="text-black-50 text-decoration-none"
-                    onclick="loadBlogs('blogs/categories/{{id}}')">{{name}}</a>
+                    <a href="?request=blogs/categories/{{id}}" class="text-black-50 text-decoration-none">{{name}}</a>
                 </li>
                 {{/each}}
             </ul>
@@ -186,10 +185,10 @@
             {{#each data}}
             <div class="clearfix py-3">
                 <h3>{{name}}</h3>
-                <p class="text-black-50">by {{author}} in <a href="#" onclick="loadBlogs('blogs/categories/{{category.id}}')">{{category.name}}</a> on {{formatDate date}} <a href="#" onclick="loadBlogDetails('{{id}}', true)">Comments ({{comments.length}})</a></p>
+                <p class="text-black-50">by {{author}} in <a href="?request=blogs/categories/{{category.id}}">{{category.name}}</a> on {{formatDate date}} <a href="?request=blogs/{{id}}&isDetail=1#comments">Comments ({{comments.length}})</a></p>
                 <img src="{{thumbpath}}" alt="{{name}}" class="float-start me-3 border rounded-4">
                 <p class="text-black-50">{{summary}}</p>
-                <a href="#" class="btn btn-link readmore ps-0" onclick="loadBlogDetails('{{id}}')">Read more</a>
+                <a href="?request=blogs/{{id}}&isDetail=1" class="btn btn-link readmore ps-0">Read more</a>
             </div>
             {{/each}}
             {{#pagination currentPage pageCount}}
@@ -197,10 +196,10 @@
                 <ul class="pagination">
                     {{#each pages}}
                         {{#if isCurrent}}
-                        <li class="page-item disabled" aria-current="page"><a class="page-link" href="#" onclick="loadBlogs('{{../../request}}', {{page}})">{{page}}</a></li>
+                        <li class="page-item disabled" aria-current="page"><a class="page-link" href="?request={{../../request}}&page={{page}}">{{page}}</a></li>
                         {{/if}}
                         {{#unless isCurrent}}
-                        <li class="page-item"><a class="page-link" href="#" onclick="loadBlogs('{{../../request}}', {{page}})">{{page}}</a></li>
+                        <li class="page-item"><a class="page-link" href="?request={{../../request}}&page={{page}}">{{page}}</a></li>
                         {{/unless}}
                     {{/each}}
                 </ul>
@@ -271,7 +270,6 @@
         </script>
 
         <script>
-            checkLogin();
             Handlebars.registerHelper('formatDate', (date) => {
                 let formatDate = new Date(date);
                 let options = {
@@ -297,11 +295,8 @@
                 view.innerHTML = template(context);
             }
 
-            loadBlogs('blogs');
-            loadData('blogs-categories', 'blogs-categories-template', 'blogs-categories');
-
-            const loadBlogDetails = async (blogId, goToComment = false) => {
-                await loadData(`blogs/${blogId}`, 'details-template', 'blogs');
+            const loadBlogDetails = async (request, goToComment = false) => {
+                await loadData(request, 'details-template', 'blogs');
                 checkLogin();
                 if(goToComment) {
                     window.location.href = '#comments';
@@ -346,6 +341,34 @@
                     responseMessage.className = 'text-danger';
                 }
             }
+
+            (async function() {
+                checkLogin();
+                const searchParams = new URLSearchParams(location.search);
+                let request = searchParams.get('request');
+                let isDetail = searchParams.get('isDetail');
+                let page = searchParams.get('page');
+                let goToComment = ('#comments' == window.location.hash);
+                
+                if(request) {
+                    if(isDetail) {
+                        await loadBlogDetails(request, goToComment);
+                    }
+                    else {
+                        if(page) {
+                            await loadBlogs(request, page);
+                        }
+                        else {
+                            await loadBlogs(request);
+                        }
+                    }
+                }
+                else {
+                    await loadBlogs('blogs');
+                }
+                
+                loadData('blogs-categories', 'blogs-categories-template', 'blogs-categories');
+            })();
         </script>
     </body>
 </html>

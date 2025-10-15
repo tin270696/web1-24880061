@@ -91,7 +91,6 @@
 
         <section class="container py-5">
             <div id="search-content">
-
             </div>
         </section>
         
@@ -169,10 +168,10 @@
             {{#if data}}
             {{#each data}}
                 <div class="py-3">
-                    <a href="#" class="text-decoration-none" onclick="loadData('{{type}}/{{id}}', 'details-template', 'search-content')"><h2 class="mb-2 text-black">{{name}}</h2></a>
+                    <a href="?request={{type}}/{{id}}" class="text-decoration-none"><h2 class="mb-2 text-black">{{name}}</h2></a>
                     <div class="text-black-50 clearfix">
                         {{#if thumbpath}}
-                        <a href="#" class="text-decoration-none" onclick="loadData('{{type}}/{{id}}', 'details-template', 'search-content')"><img src="{{thumbpath}}" class="float-start rounded-4 me-3" alt="{{name}}"></a>
+                        <a href="?request={{type}}/{{id}}" class="text-decoration-none"><img src="{{thumbpath}}" class="float-start rounded-4 me-3" alt="{{name}}"></a>
                         {{/if}}
                         <p class="">{{{summary}}}</p>
                     </div>
@@ -200,11 +199,15 @@
 
             let searchParams = new URLSearchParams(location.search);
             let keyword = searchParams.get('keyword');
+            let request = searchParams.get('request');
             if(keyword) {
                 keyword = keyword.trim();
                 if(keyword != '') {
                     loadData(`search?keyword=${keyword}`, "search-template", "search-content");
                 }
+            }
+            if(request) {
+                loadData(`${request}`, 'details-template', 'search-content');
             }
         </script>
 

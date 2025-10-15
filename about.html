@@ -185,8 +185,7 @@
             <div>
                 <img src="{{thumbpath}}" alt="{{name}}" class="float-start rounded-4 me-3">
                 <div class="text-black-50">{{{summary}}}</div>
-                <a href="#" class="btn btn-link ps-0 readmore"
-                onclick="loadData('aboutus/{{id}}', 'details-template', 'content')">Read more</a>
+                <a href="?request=aboutus/{{id}}" class="btn btn-link ps-0 readmore">Read more</a>
             </div>
             {{/each}}
         </script>
@@ -195,7 +194,7 @@
             <h1 class="py-3">Our Vision</h1>
             {{#each data}}
             <div class="mb-3 clearfix">
-                <a href="#" onclick="loadData('visions/{{id}}', 'details-template', 'content')" class="text-decoration-none">
+                <a href="?request=visions/{{id}}" class="text-decoration-none">
                     <img src="{{thumbpath}}" alt="{{name}}" class="float-start rounded-4 me-3">
                     <h3 class="text-black">{{name}}</h3>
                     <p class="text-black-50">{{summary}}</p>
@@ -224,7 +223,7 @@
             <div class="row py-3">
                 {{#each data}}
                 <div class="col">
-                    <a href="#" class="text-decoration-none" onclick="loadData('team/{{id}}', 'details-template', 'content')">
+                    <a href="?request=team/{{id}}" class="text-decoration-none">
                         <img src="{{thumbpath}}" alt="{{name}}" class="rounded-4 mb-3 img-fluid">
                         <h4 class="text-black">{{name}}</h4>
                         <p class="text-black-50">{{summary}}</p>
@@ -246,10 +245,18 @@
 
         <script>
             checkLogin();
-            loadData("aboutus", "about-us-template", "about-us");
-            loadData("visions", "visions-template", "visions");
-            loadData("testimonials", "testimonials-template", "testimonials");
-            loadData("team", "our-team-template", "our-team");
+
+            const searchParams = new URLSearchParams(location.search);
+            let request = searchParams.get('request');
+            if(request) {
+                loadData(`${request}`, 'details-template', 'content');
+            }
+            else {
+                loadData("aboutus", "about-us-template", "about-us");
+                loadData("visions", "visions-template", "visions");
+                loadData("testimonials", "testimonials-template", "testimonials");
+                loadData("team", "our-team-template", "our-team");
+            }
         </script>
     </body>
 </html>

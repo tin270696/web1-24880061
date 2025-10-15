@@ -94,7 +94,7 @@
             <strong class="text-black-50">Filter by category:</strong><br>
             <ul class="nav mt-1" id="gallery-category">
             </ul>
-            <div class="row" id="gallery">
+            <div class="row" id="gallery-content">
             </div>
         </section>
         
@@ -170,14 +170,13 @@
 
         <script id="gallery-categories-template" type="text/x-handlebars-template">
             <li>
-                <a class="nav-link disabled ps-0" href="#" aria-current="page"
-                onclick="loadData('gallery', 'gallery-template', 'gallery'); showDisabled(this)">
+                <a class="nav-link ps-0" href="?request=gallery" aria-current="page" id="gallery">
                     Show All
                 </a>
             </li>
             {{#each data}}
             <li>
-                <a class="nav-link" href="#" onclick="loadData('gallery/categories/{{id}}', 'gallery-template', 'gallery'); showDisabled(this)">
+                <a class="nav-link" href="?request=gallery/categories/{{id}}" id="gallery_categories_{{id}}">
                     {{name}}
                 </a>
             </li>
@@ -193,17 +192,30 @@
         </script>
 
         <script>
-            checkLogin();
-            loadData("gallery-categories", "gallery-categories-template", "gallery-category");
-            loadData('gallery', 'gallery-template', 'gallery');
-
-            const showDisabled = (link) => {
-                const links = document.querySelectorAll('#gallery-category a');
+            const showDisabled = (linkId) => {
+                const links = document.querySelectorAll('#gallery-category .nav-link');
                 links.forEach(item => {
                     item.classList.remove('disabled');
                 })
-                link.classList.toggle('disabled');
+                console.log(linkId);
+                document.getElementById(linkId).classList.toggle('disabled');
             }
+
+            (async function() {
+                checkLogin();
+                await loadData("gallery-categories", "gallery-categories-template", "gallery-category");
+
+                const searchParams = new URLSearchParams(location.search);
+                let request = searchParams.get('request');
+                if(request) {
+                    await loadData(`${request}`, 'gallery-template', 'gallery-content');
+                    showDisabled(request.replaceAll("/", "_"));
+                }
+                else {
+                    await loadData('gallery', 'gallery-template', 'gallery-content');
+                    showDisabled("gallery");
+                }
+            })();
         </script>
 
     </body>
