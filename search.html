@@ -53,13 +53,13 @@
                     <div class="collapse navbar-collapse" id="header-menu">
                         <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link" href="./index.html" aria-current="page">
+                                <a class="nav-link active" href="./index.html" aria-current="page">
                                     Home
                                     <span class="visually-hidden">(current)</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="./about.html">About</a>
+                                <a class="nav-link" href="./about.html">About</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="./gallery.html">Gallery</a>
@@ -87,36 +87,22 @@
             </nav>
         </header>
 
-        <section id="banner-small"></section>
+        <section class="container-fluid" id="banner-small"></section>
 
-        <div id="content">
-            <!-- About-us -->
-            <section class="container py-5">
-                <div class="row">
-                    <div class="col-md-8 col-sm-12" id="about-us">
-                    </div>
-                    <div class="col-md-4 col-sm-12" id="visions">
-                    </div>
-                </div>
-            </section>
+        <section class="container py-5">
+            <div id="search-content">
 
-            <!-- Testimonials -->
-            <section class="container-fluid" id="testimonials">
-            </section>
-
-            <!-- Our-team -->
-            <section class="container py-5" id="our-team">
-            </section>    
-        </div>
+            </div>
+        </section>
         
         <!-- Footer -->
         <footer class="container-fluid text-center py-3">
             <ul class="nav justify-content-center py-3" id="menu-footer">
                 <li class="nav-item">
-                    <a class="nav-link" href="./index.html" aria-current="page">Home</a>
+                    <a class="nav-link active" href="./index.html" aria-current="page">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="./about.html">About</a>
+                    <a class="nav-link" href="./about.html">About</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./gallery.html">Gallery</a>
@@ -179,77 +165,48 @@
         <!-- HandlebarsJS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js" integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        <script id="about-us-template" type="text/x-handlebars-template">
+        <script id="search-template" type="text/x-handlebars-template">
+            {{#if data}}
             {{#each data}}
-            <h1 class="py-3">{{name}}</h1>
-            <div>
-                <img src="{{thumbpath}}" alt="{{name}}" class="float-start rounded-4 me-3">
-                <div class="text-black-50">{{{summary}}}</div>
-                <a href="#" class="btn btn-link ps-0 readmore"
-                onclick="loadData('aboutus/{{id}}', 'details-template', 'content')">Read more</a>
-            </div>
-            {{/each}}
-        </script>
-
-        <script id="visions-template" type="text/x-handlebars-template">
-            <h1 class="py-3">Our Vision</h1>
-            {{#each data}}
-            <div class="mb-3 clearfix">
-                <a href="#" onclick="loadData('visions/{{id}}', 'details-template', 'content')" class="text-decoration-none">
-                    <img src="{{thumbpath}}" alt="{{name}}" class="float-start rounded-4 me-3">
-                    <h3 class="text-black">{{name}}</h3>
-                    <p class="text-black-50">{{summary}}</p>
-                </a>
-            </div>
-            {{/each}}
-        </script>
-
-        <script id="testimonials-template" type="text/x-handlebars-template">
-            <div class="container py-5">
-                <h1 class="text-white mb-4">Testimonials</h1>
-                <div class="row mb-3">
-                    {{#each data}}
-                    <div class="col">
-                        <p class="text-black-50">{{summary}}</p>
-                        <span class="text-white">{{name}}</span><br>
-                        <a href="#">{{email}}</a>
+                <div class="py-3">
+                    <a href="#" class="text-decoration-none" onclick="loadData('{{type}}/{{id}}', 'details-template', 'search-content')"><h2 class="mb-2 text-black">{{name}}</h2></a>
+                    <div class="text-black-50 clearfix">
+                        {{#if thumbpath}}
+                        <a href="#" class="text-decoration-none" onclick="loadData('{{type}}/{{id}}', 'details-template', 'search-content')"><img src="{{thumbpath}}" class="float-start rounded-4 me-3" alt="{{name}}"></a>
+                        {{/if}}
+                        <p class="">{{{summary}}}</p>
                     </div>
-                    {{/each}}
                 </div>
-            </div>
-        </script>
-
-        <script id="our-team-template" type="text/x-handlebars-template">
-            <h1>Our Team</h1>
-            <div class="row py-3">
-                {{#each data}}
-                <div class="col">
-                    <a href="#" class="text-decoration-none" onclick="loadData('team/{{id}}', 'details-template', 'content')">
-                        <img src="{{thumbpath}}" alt="{{name}}" class="rounded-4 mb-3 img-fluid">
-                        <h4 class="text-black">{{name}}</h4>
-                        <p class="text-black-50">{{summary}}</p>
-                    </a>
-                </div>
-                {{/each}}
-            </div>
+            {{/each}}
+            {{else}}
+                <div class="text-center text-black-50">No content found!</div>
+            {{/if}}
         </script>
 
         <script id="details-template" type="text/x-handlebars-template">
-            <section class="container py-5 overflow-auto">
-                {{#each data}}
-                <h1 class="py-3">{{name}}</h1>
-                <img src="{{imagepath}}" alt="{{name}}" class="float-start rounded-4 me-3">
-                <div class="text-black-50">{{{description}}}</div>
-                {{/each}}
-            </section>
+            {{#each data}}
+                <div class="overflow-auto">
+                    <h1 class="mb-4">{{name}}</h1>
+                    {{#if imagepath}}
+                    <img src="{{imagepath}}" class="float-start rounded-4 me-3" alt="{{name}}">
+                    {{/if}}
+                    <div class="text-black-50">{{{description}}}</div>
+                </div>
+            {{/each}}
         </script>
 
         <script>
             checkLogin();
-            loadData("aboutus", "about-us-template", "about-us");
-            loadData("visions", "visions-template", "visions");
-            loadData("testimonials", "testimonials-template", "testimonials");
-            loadData("team", "our-team-template", "our-team");
+
+            let searchParams = new URLSearchParams(location.search);
+            let keyword = searchParams.get('keyword');
+            if(keyword) {
+                keyword = keyword.trim();
+                if(keyword != '') {
+                    loadData(`search?keyword=${keyword}`, "search-template", "search-content");
+                }
+            }
         </script>
+
     </body>
 </html>
