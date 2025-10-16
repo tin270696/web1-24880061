@@ -32,15 +32,15 @@ templates['news-template.hbs'] = template({"1":function(container,depth0,helpers
         return undefined
     };
 
-  return "    <div class=\"col\">\r\n        <div class=\"row\">\r\n            <div class=\"col-3\">\r\n                <h3 class=\"newsDate text-center rounded-4 text-white py-2\">"
+  return "    <div class=\"col\">\r\n        <div class=\"float-start me-3\">\r\n            <div class=\"newsDate text-center rounded-4 text-white py-1\"><h3>"
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"date") : depth0), depth0))
-    + "</h3>\r\n                <a href=\"?request=news/"
+    + "</h3></div>\r\n            <a href=\"?request=news/"
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"id") : depth0), depth0))
-    + "\" class=\"btn btn-link readmore p-0\">Read more</a>\r\n            </div>\r\n            <div class=\"col-9\">\r\n                <h3>"
+    + "\" class=\"btn btn-link readmore ps-0\">Read more</a>\r\n        </div>\r\n        <div>\r\n            <h3>"
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"name") : depth0), depth0))
-    + "</h3>\r\n                <p class=\"text-black-50\">"
+    + "</h3>\r\n            <p class=\"text-black-50\">"
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"summary") : depth0), depth0))
-    + "</p>\r\n            </div>\r\n        </div>\r\n    </div>\r\n";
+    + "</p>\r\n        </div>\r\n    </div>\r\n";
 },"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
@@ -49,8 +49,8 @@ templates['news-template.hbs'] = template({"1":function(container,depth0,helpers
         return undefined
     };
 
-  return "<div class=\"mb-4\">\r\n    <h1>News</h1>\r\n</div>\r\n<div class=\"row mb-3\">\r\n"
-    + ((stack1 = lookupProperty(helpers,"each").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"data") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":5,"column":4},"end":{"line":18,"column":13}}})) != null ? stack1 : "")
+  return "<h1>News</h1>\r\n<div class=\"row py-3\">\r\n"
+    + ((stack1 = lookupProperty(helpers,"each").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"data") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":3,"column":4},"end":{"line":14,"column":13}}})) != null ? stack1 : "")
     + "</div>";
 },"useData":true});
 templates['products-template.hbs'] = template({"1":function(container,depth0,helpers,partials,data) {
