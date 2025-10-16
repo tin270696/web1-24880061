@@ -28,7 +28,7 @@
         />
 
         <!-- CSS -->
-        <link rel="stylesheet" href="css/24880061.css">
+        <link rel="stylesheet" href="css/24880061.min.css">
     </head>
 
     <body>
@@ -159,40 +159,11 @@
             crossorigin="anonymous"
         ></script>
 
-        <script src="./js/24880061.js"></script>
-
         <!-- HandlebarsJS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js" integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.runtime.min.js" integrity="sha512-WUaZk9J3oknQdKPT2wAfA0gEBG2371l1ACjiynLA/X28p07n1u59VFk7q1i83/bo7N9rqVdYKlnvwAAiwL36jQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        <script id="search-template" type="text/x-handlebars-template">
-            {{#if data}}
-            {{#each data}}
-                <div class="py-3">
-                    <a href="?request={{type}}/{{id}}" class="text-decoration-none"><h2 class="mb-2 text-black">{{name}}</h2></a>
-                    <div class="text-black-50 clearfix">
-                        {{#if thumbpath}}
-                        <a href="?request={{type}}/{{id}}" class="text-decoration-none"><img src="{{thumbpath}}" class="float-start rounded-4 me-3" alt="{{name}}"></a>
-                        {{/if}}
-                        <p class="">{{{summary}}}</p>
-                    </div>
-                </div>
-            {{/each}}
-            {{else}}
-                <div class="text-center text-black-50">No content found!</div>
-            {{/if}}
-        </script>
-
-        <script id="details-template" type="text/x-handlebars-template">
-            {{#each data}}
-                <div class="overflow-auto">
-                    <h1 class="mb-4">{{name}}</h1>
-                    {{#if imagepath}}
-                    <img src="{{imagepath}}" class="float-start rounded-4 me-3" alt="{{name}}">
-                    {{/if}}
-                    <div class="text-black-50">{{{description}}}</div>
-                </div>
-            {{/each}}
-        </script>
+        <script src="./js/search.templates.min.js"></script>
+        <script src="./js/24880061.min.js"></script>
 
         <script>
             checkLogin();

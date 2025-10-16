@@ -1,0 +1,12 @@
+<li>
+    <a class="nav-link ps-0" href="?request=gallery" aria-current="page" id="gallery">
+        Show All
+    </a>
+</li>
+{{#each data}}
+<li>
+    <a class="nav-link" href="?request=gallery/categories/{{id}}" id="gallery_categories_{{id}}">
+        {{name}}
+    </a>
+</li>
+{{/each}}

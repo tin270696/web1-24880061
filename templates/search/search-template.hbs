@@ -1,0 +1,18 @@
+{{#if data}}
+{{#each data}}
+<div class="py-3">
+    <a href="?request={{type}}/{{id}}" class="text-decoration-none">
+        <h2 class="mb-2 text-black">{{name}}</h2>
+    </a>
+    <div class="text-black-50 clearfix">
+        {{#if thumbpath}}
+        <a href="?request={{type}}/{{id}}" class="text-decoration-none"><img src="{{thumbpath}}"
+                class="float-start rounded-4 me-3" alt="{{name}}"></a>
+        {{/if}}
+        <p class="">{{{summary}}}</p>
+    </div>
+</div>
+{{/each}}
+{{else}}
+<div class="text-center text-black-50">No content found!</div>
+{{/if}}

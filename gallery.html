@@ -28,7 +28,7 @@
         />
 
         <!-- CSS -->
-        <link rel="stylesheet" href="css/24880061.css">
+        <link rel="stylesheet" href="css/24880061.min.css">
     </head>
 
     <body>
@@ -163,33 +163,11 @@
             crossorigin="anonymous"
         ></script>
 
-        <script src="./js/24880061.js"></script>
-
         <!-- HandlebarsJS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.min.js" integrity="sha512-E1dSFxg+wsfJ4HKjutk/WaCzK7S2wv1POn1RRPGh8ZK+ag9l244Vqxji3r6wgz9YBf6+vhQEYJZpSjqWFPg9gg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.runtime.min.js" integrity="sha512-WUaZk9J3oknQdKPT2wAfA0gEBG2371l1ACjiynLA/X28p07n1u59VFk7q1i83/bo7N9rqVdYKlnvwAAiwL36jQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        <script id="gallery-categories-template" type="text/x-handlebars-template">
-            <li>
-                <a class="nav-link ps-0" href="?request=gallery" aria-current="page" id="gallery">
-                    Show All
-                </a>
-            </li>
-            {{#each data}}
-            <li>
-                <a class="nav-link" href="?request=gallery/categories/{{id}}" id="gallery_categories_{{id}}">
-                    {{name}}
-                </a>
-            </li>
-            {{/each}}
-        </script>
-
-        <script id="gallery-template" type="text/x-handlebars-template">
-            {{#each data}}
-            <div class="col-md-3 p-2">
-                <img src="{{thumbpath}}" alt="{{name}}" class="img-thumbnail">
-            </div>
-            {{/each}}
-        </script>
+        <script src="./js/gallery.templates.min.js"></script>
+        <script src="./js/24880061.min.js"></script>
 
         <script>
             const showDisabled = (linkId) => {
@@ -197,7 +175,6 @@
                 links.forEach(item => {
                     item.classList.remove('disabled');
                 })
-                console.log(linkId);
                 document.getElementById(linkId).classList.toggle('disabled');
             }
 
